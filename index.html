@@ -43,7 +43,7 @@
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 15px;
       width: 100%;
       padding: 12px;
       background: linear-gradient(to bottom right, #FFA500, #FF8C00);
@@ -72,84 +72,37 @@
 <body>
   <div class="form-container">
     <h2>Consulta Parqueadero</h2>
+
     <label for="numero">INGRESE EL NÚMERO DEL PARQUEADERO</label>
     <input type="number" id="numero" placeholder="Ej. 29">
-    <button onclick="consultarApartamento()">Consultar</button>
+    <button onclick="consultarApartamento()">Consultar Apartamento</button>
+
+    <label for="apartamento">INGRESE EL NÚMERO DEL APARTAMENTO</label>
+    <input type="number" id="apartamento" placeholder="Ej. 101">
+    <button onclick="consultarParqueadero()">Consultar Parqueadero</button>
+
     <div class="resultado" id="resultado"></div>
   </div>
 
   <script>
     const parqueoToApto = {
-      1: 101,
-      2: 102,
-      3: 222,
-      4: 122,
-      5: 322,
-      6: 106,
-      7: 107,
-      8: 108,
-      9: 109,
-      10: 119,
-      11: 111,
-      12: 112,
-      13: 113,
-      14: 114,
-      15: 202,
-      16: 116,
-      17: 117,
-      18: 118,
-      19: 110,
-      20: 120,
-      21: 121,
-      22: 218,
-      23: 123,
-      24: 201,
-      25: 308,
-      26: 203,
-      27: 204,
-      28: 205,
-      29: 206,
-      30: 207,
-      31: 208,
-      32: 209,
-      33: 312,
-      34: 211,
-      35: 212,
-      36: 213,
-      37: 214,
-      38: 215,
-      39: 216,
-      40: 304,
-      41: 104,
-      42: 219,
-      43: 105,
-      44: 303,
-      45: 103,
-      46: 223,
-      47: 301,
-      48: 302,
-      49: 221,
-      50: 217,
-      51: 305,
-      52: 306,
-      53: 307,
-      54: 115,
-      55: 309,
-      56: 310,
-      57: 311,
-      58: 210,
-      59: 313,
-      60: 314,
-      61: 315,
-      62: 316,
-      63: 317,
-      64: 318,
-      65: 319,
-      66: 320,
-      67: 321,
-      68: 220,
-      69: 323,
+      1: 101, 2: 102, 3: 222, 4: 122, 5: 322, 6: 106, 7: 107, 8: 108,
+      9: 109, 10: 119, 11: 111, 12: 112, 13: 113, 14: 114, 15: 202,
+      16: 116, 17: 117, 18: 118, 19: 110, 20: 120, 21: 121, 22: 218,
+      23: 123, 24: 201, 25: 308, 26: 203, 27: 204, 28: 205, 29: 206,
+      30: 207, 31: 208, 32: 209, 33: 312, 34: 211, 35: 212, 36: 213,
+      37: 214, 38: 215, 39: 216, 40: 304, 41: 104, 42: 219, 43: 105,
+      44: 303, 45: 103, 46: 223, 47: 301, 48: 302, 49: 221, 50: 217,
+      51: 305, 52: 306, 53: 307, 54: 115, 55: 309, 56: 310, 57: 311,
+      58: 210, 59: 313, 60: 314, 61: 315, 62: 316, 63: 317, 64: 318,
+      65: 319, 66: 320, 67: 321, 68: 220, 69: 323,
     };
+
+    // Invertir el objeto
+    const aptoToParqueo = Object.entries(parqueoToApto).reduce((acc, [parqueo, apto]) => {
+      acc[apto] = parseInt(parqueo);
+      return acc;
+    }, {});
 
     function consultarApartamento() {
       const input = document.getElementById("numero").value;
@@ -160,6 +113,18 @@
         resultado.textContent = `El parqueadero ${numero} pertenece al apartamento ${parqueoToApto[numero]}`;
       } else {
         resultado.textContent = `No se encontró un apartamento para el parqueadero ${numero}`;
+      }
+    }
+
+    function consultarParqueadero() {
+      const input = document.getElementById("apartamento").value;
+      const resultado = document.getElementById("resultado");
+      const numero = parseInt(input);
+
+      if (aptoToParqueo[numero]) {
+        resultado.textContent = `El apartamento ${numero} tiene asignado el parqueadero ${aptoToParqueo[numero]}`;
+      } else {
+        resultado.textContent = `No se encontró un parqueadero asignado para el apartamento ${numero}`;
       }
     }
   </script>
